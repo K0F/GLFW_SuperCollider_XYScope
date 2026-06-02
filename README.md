@@ -27,7 +27,7 @@ Hardware-accelerated XY vector oscilloscope for SuperCollider using GLFW and Ope
 	make
 	make install
 ```
-Sorry probably only on Linux.
+Sorry tested on Linux only (should not be very difficult to port to other systems).
 
 Now recompile the Supercollider libraries, it should tell you something about plugin loaded on SuperCollider server boot.
 
