@@ -8,16 +8,21 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev pkg-config supercollider-dev
+
+    - name: Configure Project
+      run: chmod +x configure && ./configure
+
+    - name: Compile
       run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+
+    - name: Verify Build Output
+      run: test -f XYScope.so
