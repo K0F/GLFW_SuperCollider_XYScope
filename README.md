@@ -1,8 +1,11 @@
 # GLFW_SuperCollider_XYScope
 
+[![C/C++ CI](https://github.com/K0F/GLFW_SuperCollider_XYScope/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/c-cpp.yml)
+
 Hardware-accelerated XY vector oscilloscope for SuperCollider using GLFW and OpenGL.
 
 ![scope_viewer](https://github.com/K0F/GLFW_SuperCollider_XYScope/blob/main/XYScope.jpg?raw=true)
+
 
 # demo
 
