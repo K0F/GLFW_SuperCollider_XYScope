@@ -1,31 +1,29 @@
-# Variables
-CXX = g++
-CXXFLAGS = -O3 -Wall
+CXX ?= g++
+CXXFLAGS += -O3 -shared -fPIC -std=c++17 -Wall -Wextra
 
-# SuperCollider Include Paths
-SC_DIR = /usr/include/SuperCollider
-SC_INCLUDES = -I $(SC_DIR)/plugin_interface \
-              -I $(SC_DIR)/common \
-              -I $(SC_DIR)
+GLFW_CFLAGS := $(shell pkg-config --cflags glfw3 2>/dev/null)
+GLFW_LIBS := $(shell pkg-config --libs glfw3 2>/dev/null || echo "-lglfw")
+GL_LIBS := -lGL -lOpenGL
 
-# Output Targets
-PLUGIN = XYScope.so
-VIEWER = scope_viewer
+SC_DIR_A := /usr/include/SuperCollider
+SC_DIR_B := /usr/include/supercollider
 
-# Default target runs everything
-all: $(PLUGIN) $(VIEWER)
+INCLUDES := -I$(SC_DIR_A) -I$(SC_DIR_A)/plugin_interface -I$(SC_DIR_A)/common -I$(SC_DIR_B) -I$(SC_DIR_B)/plugin_interface -I$(SC_DIR_B)/common $(GLFW_CFLAGS)
+LIBS := $(GLFW_LIBS) $(GL_LIBS)
 
-# Compile the SuperCollider UGen Plugin
-$(PLUGIN): XYScope.cpp
-	$(CXX) -shared -fPIC $(CXXFLAGS) $(SC_INCLUDES) $< -o $@ -lrt
+TARGET = XYScope.so
+SRCS = XYScope.cpp
 
-# Compile the GLFW/OpenGL Viewer
-$(VIEWER): viewer.cpp
-	$(CXX) $(CXXFLAGS) $< -o $@ -lglfw -lGL -lrt
+.PHONY: all clean install
 
-# Clean up build binaries
+all: $(TARGET)
+
+$(TARGET): $(SRCS)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRCS) $(LIBS) -o $(TARGET)
+
 clean:
-	rm -f $(PLUGIN) $(VIEWER)
+	rm -f $(TARGET)
 
-# Only non-file administrative commands should be PHONY
-.PHONY: all clean
+install: $(TARGET)
+	mkdir -p ~/.local/share/SuperCollider/Extensions/
+	cp $(TARGET) ~/.local/share/SuperCollider/Extensions/
