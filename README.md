@@ -1,5 +1,7 @@
 # SuperCollider plugin XYScope (GLFW)
 
+This is kind of obviously silly one. I had some sketches back in 0's doing practically the same. What chnged is that now it is fast lightweight GLFW app with a plugin for SuperCollider, basically we all need to replace somewhat closed outdated baudline... super handy visualiser for any synthmaker, it may be the next thing to come.
+
 ![scope_viewer](https://github.com/K0F/GLFW_SuperCollider_XYScope/blob/main/XYScope.jpg?raw=true)
 
 
