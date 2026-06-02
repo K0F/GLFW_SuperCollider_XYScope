@@ -1,3 +1,7 @@
+# GLFW_SuperCollider_XYScope
+
+Hardware-accelerated XY vector oscilloscope for SuperCollider using GLFW and OpenGL.
+
 # SuperCollider plugin XYScope (GLFW)
 
 This is kind of obviously silly one. I had some sketches back in 0's doing practically the same in the most weird environments imaginable.
@@ -22,11 +26,8 @@ What changed since then is that, now it is fast lightweight GLFW app with a plug
 ## build
 
 ```bash
-	git clone https://github.com/K0F/GLFW_SuperCollider_XYScope.git
-	cd GLFW_Supecollider_XYScope
 	make
-	cd ..
-	mv GLFW_SuperCollider_XYScope SuperCollider/Extensions/Directory
+	make install
 ```	
 
 You need to copy folder to any location SuperCollider sees the Extensions... on linux usually: `$HOME/.local/share/SuperCollider/Extensions`.
@@ -39,39 +40,20 @@ Now recompile the Supercollider libraries, it should tell you something about pl
 	./scope_viewer
 ```
 
-## to run NodeProxies on XYScope:
+## Usage:
 
 ```supercollider
-s.boot;
-p.push();
-
-p = ProxySpace.push(s);
-
-//// global listener //////////////////////
-
-(
-~globalScopeListener.clear;
-~globalScopeListener.ar(2);
-(
-~globalScopeListener = {
-    var masterOuts = In.ar(0, 2);
-    XYScope.ar(masterOuts[0], masterOuts[1]);
-    0.0;
-};
-~globalScopeListener.play(to: \end);
-
-)
-
-//// testing synth ///////////////////////////
-(
-~one.fadeTime=5;
-~one = {
-    var base = 220 * (2**([1,7]/12+1));
-	var sig = SinOsc.ar(base,[0,pi]) * Pulse.ar(4);
+	s.waitForBoot({
+	    ~scope = {
+	        var src = In.ar(0, 2);
+	        XYScope.ar(src[0], src[1]);
+	        0.0;
+	    }.play(target: s, addAction: \toTail);
 	
-    sig = GVerb.ar(sig,60,3)/16+sig;
-    Out.ar(0,Splay.ar(sig,1,0.3));
-};
-~one.play;
-)
+	    ~sig = {
+	        var x = SinOsc.ar(100);
+	        var y = SinOsc.ar(150);
+	        Out.ar(0, [x, y] * 0.3);
+	    }.play;
+	});
 ```
