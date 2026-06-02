@@ -2,7 +2,7 @@
 
 This is kind of obviously silly one. I had some sketches back in 0's doing practically the same in the most weird environments imaginable.
 
-What changed since then is that, now it is fast lightweight GLFW app with a plugin for SuperCollider. It should be close to metal. There are probably many out there but still it is super handy visualiser for any synthmaker in SuperCollider.
+What changed since then is that, now it is fast lightweight GLFW app with a plugin for SuperCollider. It should be close to metal (running almost 120fps). There are probably many out there but still it is super handy visualiser for any synthmaker in SuperCollider.
 
 ![scope_viewer](https://github.com/K0F/GLFW_SuperCollider_XYScope/blob/main/XYScope.jpg?raw=true)
 
