@@ -29,6 +29,12 @@ You need to copy folder to any location SuperCollider sees the Extensions... on 
 
 Now recompile the Supercollider libraries, it should tell you something about plugin loaded on server boot.
 
+## run the scope_viewer
+
+```bash
+	./scope_viewer
+```
+
 ## to run NodeProxies on XYScope:
 
 ```supercollider
