@@ -1,4 +1,4 @@
-#SuperCollider plugin XYScope (GLFW)
+# SuperCollider plugin XYScope (GLFW)
 
 ## dependecies
 
@@ -17,6 +17,7 @@
 
 You need to copy folder to any location SuperCollider sees the Extensions... on linux usually: `$HOME/.local/share/SuperCollider/Extensions`.
 
+Now recompile the Supercollider libraries, it should tell you something about plugin loaded on server boot.
 
 ## to run NodeProxies on XYScope:
 
