@@ -1,0 +1,36 @@
+#!/bin/sh
+
+set -e
+
+echo "Checking for GLFW3..."
+pkg-config --exists glfw3 || { echo "Error: glfw3 not found via pkg-config."; exit 1; }
+
+echo "Checking for OpenGL..."
+ldconfig -p | grep -q libGL.so || { echo "Error: libGL.so not found."; exit 1; }
+
+echo "Searching for SuperCollider headers..."
+FOUND_SC=""
+for dir in \
+    /usr/include/SuperCollider \
+    /usr/include/supercollider \
+    /usr/local/include/SuperCollider \
+    /usr/local/include/supercollider
+do
+    if [ -f "$dir/plugin_interface/SC_PlugIn.h" ] && [ -f "$dir/common/SC_Types.h" ]; then
+        FOUND_SC="$dir"
+        break
+    fi
+done
+
+if [ -z "$FOUND_SC" ]; then
+    echo "Error: Could not locate complete SuperCollider header directories."
+    exit 1
+fi
+
+echo "Found SuperCollider base path at: $FOUND_SC"
+
+cat << EOF > config.mk
+SC_BASE_DIR := $FOUND_SC
+EOF
+
+echo "Configuration successful. Run 'make' to build."
