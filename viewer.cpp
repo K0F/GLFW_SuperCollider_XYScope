@@ -75,7 +75,7 @@ int main() {
 
     uint32_t current_write_ptr = shm->write_ptr;
 
-    glLineWidth(3.5f); // 5.5?
+    glLineWidth(1.5f); // 5.5?
     glBegin(GL_LINE_STRIP);
     for (int i = 0; i < TRAIL_SAMPLES; i++) {
       int idx =
@@ -83,13 +83,13 @@ int main() {
       float age_factor = (float)i / (float)TRAIL_SAMPLES;
       float alpha = age_factor * age_factor * age_factor;
 
-      // #ffcc00 as target gradienting
+      // #ffcc00 as target gradient
       glColor4f(1.0f, 0.85f, 0.1f, alpha * 0.12f);
       glVertex2f(shm->x[idx], shm->y[idx]);
     }
     glEnd();
 
-    glLineWidth(1.5f); // Thin laser line right down the middle
+    glLineWidth(0.75f); // Thin laser line right down the middle
     glBegin(GL_LINE_STRIP);
     for (int i = 0; i < TRAIL_SAMPLES; i++) {
       int idx =
