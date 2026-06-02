@@ -1,5 +1,7 @@
 # SuperCollider plugin XYScope (GLFW)
 
+![scope_viewer](https://github.com/K0F/GLFW_SuperCollider_XYScope/blob/main/XYScope.jpg?raw=true)
+
 ## dependecies
 
 	- GLFW
