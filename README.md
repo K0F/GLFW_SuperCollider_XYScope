@@ -2,14 +2,7 @@
 
 Hardware-accelerated XY vector oscilloscope for SuperCollider using GLFW and OpenGL.
 
-# SuperCollider plugin XYScope (GLFW)
-
-This is kind of obviously silly one. I had some sketches back in 0's doing practically the same in the most weird environments imaginable.
-
-What changed since then is that, now it is fast lightweight GLFW app with a plugin for SuperCollider. It should be close to metal (running almost 120fps). There are probably many out there but still it is super handy visualiser for any synthmaker in SuperCollider.
-
 ![scope_viewer](https://github.com/K0F/GLFW_SuperCollider_XYScope/blob/main/XYScope.jpg?raw=true)
-
 
 # demo
 
@@ -18,23 +11,22 @@ What changed since then is that, now it is fast lightweight GLFW app with a plug
   </a>
 </p>
 
-## dependecies
+## Requirements
 
-	- GLFW
-	- SuperCollider
+* SuperCollider server headers (`SC_PlugIn.h`)
+* GLFW3
+* OpenGL
 
-## build
+## Build & Install
 
 ```bash
 	make
 	make install
 ```	
 
-You need to copy folder to any location SuperCollider sees the Extensions... on linux usually: `$HOME/.local/share/SuperCollider/Extensions`.
+Now recompile the Supercollider libraries, it should tell you something about plugin loaded on SuperCollider server boot.
 
-Now recompile the Supercollider libraries, it should tell you something about plugin loaded on server boot.
-
-## run the scope_viewer
+## Run scope_viewer
 
 ```bash
 	./scope_viewer
