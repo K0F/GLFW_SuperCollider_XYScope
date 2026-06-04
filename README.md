@@ -1,16 +1,14 @@
-# GLFW_SuperCollider_XYScope
+# GLFW SuperCollider XY(Z) Scope
 
 [![C/C++ CI](https://github.com/K0F/GLFW_SuperCollider_XYScope/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/c-cpp.yml)
 
-Hardware-accelerated XY vector oscilloscope for SuperCollider using GLFW and OpenGL.
+Hardware-accelerated XY(Z) vector oscilloscope for SuperCollider using GLFW and OpenGL.
 
 ![scope_viewer](https://github.com/K0F/GLFW_SuperCollider_XYScope/blob/main/XYScope.jpg?raw=true)
 
-
 # demo
-
 <p align="center">
-  <a href="https://youtu.be/2GhP0nvB7-0">    <img src="https://img.youtube.com/vi/2GhP0nvB7-0.jpg" alt="Watch the video" width="70%">
+  <a href="https://www.youtube.com/watch?v=X6hnJ_Xu4L0">    <img src="https://img.youtube.com/vi/X6hnJ_Xu4L0.jpg" alt="Watch the video" width="70%">
   </a>
 </p>
 
@@ -37,9 +35,7 @@ Now recompile the Supercollider libraries, it should tell you something about pl
 	./scope_viewer
 ```
 
-## Usage:
-
-	There are some arguments you can run the viewer with:
+There are some arguments you can run scope_viewer with:
 
 	-r sets target FPS rate
 	-s set rectangular side size
@@ -47,18 +43,23 @@ Now recompile the Supercollider libraries, it should tell you something about pl
 	-a if flag -3d is on, this will disable autorotate by Y axis 
 
 
+## Usage (SuperCollider):
+
+
 ```supercollider
 	s.waitForBoot({
 	    ~scope = {
-	        var src = In.ar(0, 2);
-	        XYScope.ar(src[0], src[1]);
+	        var src = In.ar(0, 3);
+	        XYScope.ar(src[0], src[1], src[3]); // only if you feed 3rd dimmension into graph
 	        0.0;
 	    }.play(target: s, addAction: \toTail);
 	
 	    ~sig = {
 	        var x = SinOsc.ar(100);
 	        var y = SinOsc.ar(150);
-	        Out.ar(0, [x, y] * 0.3);
+	        var z = SinOsc.ar(75);
+
+	        Out.ar(0, [x, y, z] * 0.3);
 	    }.play;
 	});
 ```
