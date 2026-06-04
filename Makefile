@@ -14,12 +14,17 @@ LIBS := $(GLFW_LIBS) $(GL_LIBS)
 TARGET = XYScope.so
 SRCS = XYScope.cpp
 
+
 .PHONY: all clean install
 
-all: $(TARGET)
+all: $(TARGET) viewer
 
 $(TARGET): $(SRCS)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRCS) $(LIBS) -o $(TARGET)
+
+viewer: viewer.cpp
+	g++ -O3 viewer.cpp -o scope_viewer -lglfw -lGL -lrt
+
 
 clean:
 	rm -f $(TARGET)

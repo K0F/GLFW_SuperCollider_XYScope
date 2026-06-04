@@ -39,8 +39,8 @@ int main() {
   glfwWindowHint(GLFW_SAMPLES, 8);
 
   // golden PAL as default
-  GLFWwindow *window = glfwCreateWindow(
-      932, 576, "XY Scope - Ultra-Smooth Vector Glow", NULL, NULL);
+  GLFWwindow *window =
+      glfwCreateWindow(932, 576, "XY Scope - PAL@120", NULL, NULL);
   if (!window) {
     std::cerr << "Error: Failed to create GLFW window" << std::endl;
     glfwTerminate();
@@ -64,11 +64,9 @@ int main() {
     glClearColor(0.012f, 0.0096f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Global Blend Setup for glow synthesis
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Additive blending
 
-    // SMOOTHING FIX 2: Explicitly enable hardware multisampling
     glEnable(GL_MULTISAMPLE);
     glEnable(GL_LINE_SMOOTH);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
