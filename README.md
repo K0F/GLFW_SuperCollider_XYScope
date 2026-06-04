@@ -39,6 +39,14 @@ Now recompile the Supercollider libraries, it should tell you something about pl
 
 ## Usage:
 
+	There are some arguments you can run the viewer with:
+
+	-r sets target FPS rate
+	-s set rectangular side size
+	-3d turns the third dimmension on
+	-a if flag -3d is on, this will disable autorotate by Y axis 
+
+
 ```supercollider
 	s.waitForBoot({
 	    ~scope = {
