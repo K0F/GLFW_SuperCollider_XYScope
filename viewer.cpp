@@ -23,7 +23,8 @@ struct SharedLayout {
 
 int main(int argc, char *argv[]) {
   double target_fps = 60.0;
-  int window_size = 576;
+  int width = 932;
+  int height = 576;
   bool mode3D = false;
   bool autorotate = true;
   int frameCount = 0;
@@ -33,7 +34,7 @@ int main(int argc, char *argv[]) {
     if (arg == "-r" && i + 1 < argc) {
       target_fps = std::stod(argv[++i]);
     } else if (arg == "-s" && i + 1 < argc) {
-      window_size = std::stoi(argv[++i]);
+      height = std::stoi(argv[++i]);
     } else if (arg == "-3d") {
       mode3D = true;
       autorotate = true;
@@ -41,13 +42,13 @@ int main(int argc, char *argv[]) {
       autorotate = false;
     } else {
       std::cerr << "Usage: " << argv[0]
-                << " [-r fps_rate] [-s window_size] [-3d XYZ] [-a turn OFF "
+                << " [-r fps_rate] [-s height of the window] [-3d XYZ] [-a turn OFF "
                    "AutoRotate]\n";
       return -1;
     }
   }
 
-  int shm_fd = shm_open("/sc_xy_scope", O_RDONLY, 0444);
+  int shm_fd = shm_open("/tmp/sc_xy_scope", O_RDONLY, 0444);
   if (shm_fd < 0) {
     std::cerr << "Error: Could not open shared memory." << std::endl;
     return -1;
@@ -78,7 +79,7 @@ int main(int argc, char *argv[]) {
 
   std::string title = mode3D ? "XYZ 3D Scope Viewer" : "XY Scope Viewer";
   GLFWwindow *window =
-      glfwCreateWindow(window_size, window_size, title.c_str(), NULL, NULL);
+      glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
   if (!window) {
     std::cerr << "Error: Failed to create GLFW window" << std::endl;
     glfwTerminate();
@@ -119,7 +120,7 @@ int main(int argc, char *argv[]) {
       if (autorotate)
         rot_y += AUTOROTATERATE;
 
-    int width, height;
+    //int width, height;
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
 
@@ -134,6 +135,7 @@ int main(int argc, char *argv[]) {
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    
     if (mode3D) {
       glScalef(0.55f, 0.55f, 0.55f);
       glRotatef(rot_x, 1.0f, 0.0f, 0.0f);
@@ -166,7 +168,6 @@ int main(int argc, char *argv[]) {
     }
     glEnd();
 
-    ++frameCount;
 
     glfwSwapBuffers(window);
     glfwPollEvents();
@@ -178,7 +179,10 @@ int main(int argc, char *argv[]) {
           static_cast<int>(sleep_seconds * 1000000.0));
       std::this_thread::sleep_for(sleep_duration);
     }
-  }
+    
+    ++frameCount;
+
+  }//end loop
 
   munmap(shm, sizeof(SharedLayout));
   close(shm_fd);
